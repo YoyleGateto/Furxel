@@ -10,117 +10,202 @@ import sys.FileSystem;
 
 import api.MobileAPI;
 
+import openfl.display3D.textures.RectangleTexture;
+import openfl.display.BitmapData;
+import flixel.graphics.FlxGraphic;
+import lime.graphics.Image;
+
 @:unreflective class ModsMenuSubState extends MusicBeatSubState
 {
-    var sprites:FlxTypedGroup<Alphabet> = new FlxTypedGroup<Alphabet>();
-
-    var selInt:Int = 0;
-
-    var camPos = {x: 0.0, y: 0.0};
-
-    var options:Array<String> = [];
-
-    final DISABLE_ID:String = '< Disable Mods >';
-
-    override function create()
-    {
-        super.create();
-
-        if (FileSystem.exists('mods'))
-            if (FileSystem.isDirectory('mods'))
-                for (folder in FileSystem.readDirectory('mods'))
-                    if (FileSystem.isDirectory('mods/' + folder) && folder != '.git')
-                        options.push(folder);
-
-        options.push(DISABLE_ID);
-
-        var bg:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0xFF141820, 0xFF1F232B));
-        add(bg);
-        bg.scrollFactor.set();
-        bg.alpha = 0;
-        FlxTween.tween(bg, {alpha: 0.6}, 0.25, {ease: FlxEase.cubeOut});
-        bg.cameras = [subCamera];
-        bg.velocity.x = bg.velocity.y = 100;
-
-        add(sprites);
-
-        for (option in options)
-        {
-            var sprite = new Alphabet(0, 0, option);
-            sprites.add(sprite);
-            sprite.cameras = [subCamera];
-
-            FlxTween.tween(sprite, {x: 20 * options.indexOf(option), y: 125 * options.indexOf(option)}, 0.2, {ease: FlxEase.cubeOut});
-        }
-
-        changeShit();
-
-        MobileAPI.toggleButtons(false, false);
-
-        MobileAPI.createButtons(FlxG.width - 100, FlxG.height - 100, [{label: 'A', keys: ClientPrefs.controls.ui.accept}], null, true);
-
-        MobileAPI.createButtons(100, FlxG.height - 200, [
-            {label: 'D', keys: ClientPrefs.controls.ui.down},
-            {label: 'U', keys: ClientPrefs.controls.ui.up},
-        ], null, true);
-    }
-
-    override function update(elapsed:Float)
-    {
-        super.update(elapsed);
-
-        subCamera.scroll.x = CoolUtil.fpsLerp(subCamera.scroll.x, camPos.x, 0.2);
-        subCamera.scroll.y = CoolUtil.fpsLerp(subCamera.scroll.y, camPos.y, 0.2);
-
-        if (Controls.ACCEPT)
-        { 
-            var save:FlxSave = new FlxSave();
-            save.bind('ALEEngineData', CoolUtil.getSavePath(false));
-            save.data.currentMod = options[selInt] == DISABLE_ID ? null : options[selInt];
-            save.flush();
-
-            close();
-
-            CoolUtil.resetGame();
-        }
-
-        if (Controls.UI_DOWN_P || Controls.UI_UP_P || Controls.MOUSE_WHEEL)
-        {
-            if (Controls.UI_DOWN_P || Controls.MOUSE_WHEEL_DOWN)
-            {
-                if (selInt >= sprites.members.length - 1)
-                    selInt = 0;
-                else
-                    selInt++;
-            }
-        
-            if (Controls.UI_UP_P || Controls.MOUSE_WHEEL_UP)
-            {
-                if (selInt == 0)
-                    selInt = sprites.members.length - 1;
-                else
-                    selInt--;
-            }
-            
-            changeShit();
-
-            FlxG.sound.play(Paths.sound('scrollMenu'));
-        }
-    }
-
-    function changeShit()
-    {
-        for (sprite in sprites)
-        {
-            if (sprites.members.indexOf(sprite) == selInt)
-            {
-                sprite.alpha = 1;
-
-                camPos.x = sprite.x - 100;
-                camPos.y = sprite.y - 300;
-            } else {
-                sprite.alpha = 0.4;
-            }
-        }
-    }
+    var sprites:FlxTypedGroup<FlxText> = new FlxTypedGroup<FlxText>();
+	var icons:FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
+	
+	var selInt:Int = 0;
+	
+	var holdElapsed:Float = 0.0;
+	
+	var camPos = {x: 0.0, y: 0.0};
+	
+	var options:Array<String> = [];
+	
+	final DISABLE_ID:String = 'Example';
+	
+	function getModIcon(name:String, ?gpuCache:Bool = false) {
+		var path = "mods/" + name + "/icon.png";
+		
+		if (!FileSystem.exists(path)) return null;
+		
+		final bytes:Bytes = File.getBytes(path);
+	    final image:Image = Image.fromBytes(bytes);
+	    final bitmap:BitmapData = BitmapData.fromImage(image);
+	    
+	    if (gpuCache)
+	    {
+	        final texture:RectangleTexture = FlxG.stage.context3D.createRectangleTexture(bitmap.width, bitmap.height, BGRA, true);
+	        texture.uploadFromBitmapData(bitmap);
+	    }
+	    
+	    final graphic:FlxGraphic = FlxGraphic.fromBitmapData(bitmap, false, path);
+	    graphic.persist = true;
+	    graphic.destroyOnNoUse = false;
+	    
+	    return graphic;
+	}
+	
+	function reverseMin(v, max) {
+		if(v > max) {
+			return max + (max - v);
+		} else {
+			return v;
+		}
+	}
+	
+	override function create()
+	{
+	    super.create();
+	
+	    if (FileSystem.exists('mods'))
+	        if (FileSystem.isDirectory('mods'))
+	            for (folder in FileSystem.readDirectory('mods'))
+	                if (FileSystem.isDirectory('mods/' + folder) && folder != '.git')
+	                    options.push(folder);
+	
+	    options.push(DISABLE_ID);
+	
+	    var bg:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0xFF003015, 0xFF004020));
+	    add(bg);
+	    bg.scrollFactor.set();
+	    bg.alpha = 0;
+	    FlxTween.tween(bg, {alpha: 0.6}, 0.25, {ease: FlxEase.cubeOut});
+	    bg.cameras = [subCamera];
+	    bg.velocity.x = bg.velocity.y = 100;
+	
+	    add(sprites);
+	    add(icons);
+	
+	    for (option in options)
+	    {
+	        var sprite = new FlxText(-1280, 125*options.indexOf(option), 0, option);
+	        sprite.setFormat(Paths.font("jetbrains.ttf"), 60, FlxColor.WHITE, "left");
+	        sprites.add(sprite);
+	        sprite.cameras = [subCamera];
+	        
+	        var graphic = getModIcon(option) ?? Paths.image("unknownIcon");
+	        var icon = new FlxSprite(-150, -150).loadGraphic(graphic);
+	        icon.setGraphicSize(100,100);
+	        icon.updateHitbox();
+	        icon.antialiasing = false;
+			icons.add(icon);
+	        icon.cameras = [subCamera];
+	    }
+	
+	    changeShit();
+	
+	    MobileAPI.toggleButtons(false, false);
+	
+	    MobileAPI.createButtons(FlxG.width - 100, FlxG.height - 100, [{label: 'A', keys: ClientPrefs.controls.ui.accept}], null, true);
+	
+	    MobileAPI.createButtons(100, FlxG.height - 200, [
+	        {label: 'D', keys: ClientPrefs.controls.ui.down},
+	        {label: 'U', keys: ClientPrefs.controls.ui.up},
+	    ], null, true);
+	}
+	
+	override function update(elapsed:Float)
+	{
+	    super.update(elapsed);
+	    
+	    for (sprite in sprites)
+	    {
+	    	var offset = sprites.members.indexOf(sprite) - selInt;
+	    	sprite.x = CoolUtil.fpsLerp(sprite.x, 300 + reverseMin(20*(offset*(offset*0.5)), 0), 0.2);
+	    	var icon = icons.members[sprites.members.indexOf(sprite)];
+	    	icon.x = sprite.x - 125;
+	    	icon.y = sprite.y - 12;
+			icon.alpha = sprite.alpha;
+		}
+		
+	    subCamera.scroll.x = CoolUtil.fpsLerp(subCamera.scroll.x, camPos.x, 0.2);
+	    subCamera.scroll.y = CoolUtil.fpsLerp(subCamera.scroll.y, camPos.y, 0.2);
+	
+	    if (Controls.ACCEPT)
+	    { 
+	        var save:FlxSave = new FlxSave();
+	        save.bind('ALEEngineData', CoolUtil.getSavePath(false));
+	        save.data.currentMod = options[selInt] == DISABLE_ID ? null : options[selInt];
+	        save.flush();
+	
+	        close();
+	
+	        CoolUtil.resetGame();
+	    }
+	    
+	    if (Controls.UI_DOWN || Controls.UI_UP)
+	    {
+	    	if (holdElapsed < 0.5) {
+	    		holdElapsed += elapsed;
+	    	} else {
+	    		holdElapsed = 0.45;
+	    		
+	    		if (Controls.UI_DOWN)
+		        {
+		            if (selInt >= sprites.members.length - 1)
+		                selInt = 0;
+		            else
+		                selInt++;
+		        }
+		    
+		        if (Controls.UI_UP)
+		        {
+		            if (selInt == 0)
+		                selInt = sprites.members.length - 1;
+		            else
+		                selInt--;
+		        }
+		
+				changeShit();
+	     	   FlxG.sound.play(Paths.sound('scrollMenu'));
+			}
+	    } else {
+	    	holdElapsed = 0.0;
+	    }
+	
+	    if (Controls.UI_DOWN_P || Controls.UI_UP_P || Controls.MOUSE_WHEEL)
+	    {
+	        if (Controls.UI_DOWN_P || Controls.MOUSE_WHEEL_DOWN)
+	        {
+	            if (selInt >= sprites.members.length - 1)
+	                selInt = 0;
+	            else
+	                selInt++;
+	        }
+	    
+	        if (Controls.UI_UP_P || Controls.MOUSE_WHEEL_UP)
+	        {
+	            if (selInt == 0)
+	                selInt = sprites.members.length - 1;
+	            else
+	                selInt--;
+	        }
+	        
+	        changeShit();
+	
+	        FlxG.sound.play(Paths.sound('click'));
+	    }
+	}
+	
+	function changeShit()
+	{
+	    for (sprite in sprites)
+	    {
+	        if (sprites.members.indexOf(sprite) == selInt)
+	        {
+	            sprite.alpha = 1;
+	            
+	            camPos.y = sprite.y - 300;
+	        } else {
+	            sprite.alpha = 0.4;
+	        }
+	    }
+	}
 }

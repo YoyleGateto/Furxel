@@ -18,10 +18,14 @@ class Defines
 	public static var CONTENT_MOD(default, null):Null<String> = null;
 
 	public static var DISABLE_ADMINISTRATOR_EASTER_EGG(default, null):Bool = false;
+	
+	public static var ASSETS_ONLY(default, null):Bool = false;
 
 	public static function init()
 	{
 		CONTENT_MOD = get('CONTENT_MOD');
+		
+		ASSETS_ONLY = exists('ASSETS_ONLY');
 
 		DISABLE_ADMINISTRATOR_EASTER_EGG = exists('DISABLE_ADMINISTRATOR_EASTER_EGG');
 	}

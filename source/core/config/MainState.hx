@@ -27,7 +27,7 @@ class MainState extends FlxState
             {
                 CoolUtil.switchState(new AdminState());
             } else if (showedModMenu) {
-                CoolUtil.switchState(new CustomState(CoolVars.data.initialState), true, true);
+                CoolUtil.switchState(new CustomState("InitialState"), true, true);
             } else {
                 showedModMenu = true;
 

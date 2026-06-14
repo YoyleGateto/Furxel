@@ -54,28 +54,17 @@ class CoolVars
 
 			verbose: false,
 			allowDebugPrint: true,
+			
+			transition: 'Transition',
 
-			initialState: 'TitleState',
-			freeplayState: 'FreeplayState',
-			storyMenuState: 'StoryMenuState',
-			masterEditorState: 'MasterEditorState',
-			mainMenuState: 'MainMenuState',
-			optionsState: 'OptionsState',
-
-			loadDefaultWeeks: true,
-
-			pauseSubState: 'PauseSubState',
-			gameOverScreen: 'GameOverSubState',
-			transition: 'FadeTransition',
-
-			title: 'Friday Night Funkin\': ALE Psych',
+			title: 'Furxel',
 			icon: 'images/appIcon',
 			width: 1280,
 			height: 720,
 
 			windowColor: [33, 33, 33],
 
-			bpm: 102.0,
+			bpm: 100.0,
 
 			discordID: '1309982575368077416',
 
@@ -92,8 +81,8 @@ class CoolVars
 		var json:Null<ALEData> = null;
 
 		for (path in [Paths.mods + '/' + Paths.mod, Paths.assets])
-			if (FileSystem.exists(path + '/data/data.json'))
-				json = cast Json.parse(File.getContent(path + '/data/data.json'));
+			if (FileSystem.exists(path + '/meta.json'))
+				json = cast Json.parse(File.getContent(path + '/meta.json'));
 
 		for (field in Reflect.fields(json))
 			if (Reflect.field(data, field) != null)
