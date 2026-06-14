@@ -14,6 +14,7 @@ import openfl.display3D.textures.RectangleTexture;
 import openfl.display.BitmapData;
 import flixel.graphics.FlxGraphic;
 import lime.graphics.Image;
+import lime.utils.Bytes;
 
 @:unreflective class ModsMenuSubState extends MusicBeatSubState
 {
@@ -118,7 +119,7 @@ import lime.graphics.Image;
 	    for (sprite in sprites)
 	    {
 	    	var offset = sprites.members.indexOf(sprite) - selInt;
-	    	//sprite.x = CoolUtil.fpsLerp(sprite.x, 300.0 + reverseMin(20.0*(offset*(offset*0.5)), 0.0), 0.2); //i'll figure it later
+	    	sprite.x = CoolUtil.fpsLerp(sprite.x, 300.0 + reverseMin(20.0*(offset*(offset*0.5)), 0.0), 0.2);
 	    	var icon = icons.members[sprites.members.indexOf(sprite)];
 	    	icon.x = sprite.x - 125;
 	    	icon.y = sprite.y - 12;
