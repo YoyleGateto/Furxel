@@ -8,19 +8,8 @@ typedef ALEData =
 
     var verbose:Bool;
     var allowDebugPrint:Bool;
-
-    var initialState:String;
-    var freeplayState:String;
-    var storyMenuState:String;
-    var masterEditorState:String;
-    var mainMenuState:String;
-    var optionsState:String;
-
-    var pauseSubState:String;
-    var gameOverScreen:String;
+    
     var transition:String;
-
-    var loadDefaultWeeks:Bool;
 
     var title:String;
     var icon:String;
