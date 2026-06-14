@@ -266,7 +266,7 @@ class Main extends Sprite
 			FlxG.sound.music.stop();
 
 			FlxG.sound.music = null;
-		
+		}
 
         Conductor.destroy();
 		
@@ -287,9 +287,9 @@ class Main extends Sprite
 		FlxG.stage.removeChild(debugCounter);
     }
 
-	static var allowMobileConfig:Bool = true;
+	@:unreflective static var allowMobileConfig:Bool = true;
 
-    public static function postResetConfig()
+    @:unreflective public static function postResetConfig()
     {
 		if (allowMobileConfig)
 		{
