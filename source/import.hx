@@ -14,9 +14,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
 import funkin.visuals.objects.FunkinSprite;
-import funkin.visuals.objects.Bopper;
 import funkin.visuals.Camera;
-import funkin.states.PlayState;
 
 import core.assets.Paths;
 
