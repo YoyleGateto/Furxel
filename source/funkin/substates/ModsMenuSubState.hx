@@ -52,7 +52,7 @@ import lime.graphics.Image;
 	    return graphic;
 	}
 	
-	function reverseMin(v, max) {
+	function reverseMin(v:Float, max:Float) {
 		if(v > max) {
 			return max + (max - v);
 		} else {
@@ -118,7 +118,7 @@ import lime.graphics.Image;
 	    for (sprite in sprites)
 	    {
 	    	var offset = sprites.members.indexOf(sprite) - selInt;
-	    	sprite.x = Std.float(CoolUtil.fpsLerp(Std.int(sprite.x), Std.int(300 + reverseMin(20*(offset*(offset*0.5)), 0)), 0.2));
+	    	sprite.x = CoolUtil.fpsLerp(sprite.x, 300.0 + reverseMin(20.0*(offset*(offset*0.5)), 0.0)), 0.2);
 	    	var icon = icons.members[sprites.members.indexOf(sprite)];
 	    	icon.x = sprite.x - 125;
 	    	icon.y = sprite.y - 12;
