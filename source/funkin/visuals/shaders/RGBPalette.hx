@@ -1,7 +1,5 @@
 package funkin.visuals.shaders;
 
-import funkin.visuals.game.Note;
-
 class RGBPalette
 {
 	public var shader(default, null):RuntimeShader = new RuntimeShader('default/noteRGB', true);
