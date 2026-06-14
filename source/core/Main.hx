@@ -25,8 +25,6 @@ import flixel.input.keyboard.FlxKey;
 
 import funkin.debug.DebugCounter;
 
-import funkin.modchart.ModchartUtil;
-
 import core.config.MainState;
 
 import core.backend.SoundTray;
@@ -268,9 +266,7 @@ class Main extends Sprite
 			FlxG.sound.music.stop();
 
 			FlxG.sound.music = null;
-		}
-
-		ModchartUtil.destroy();
+		
 
         Conductor.destroy();
 		
@@ -367,8 +363,6 @@ class Main extends Sprite
 
 		Formatter.init();
 
-		ModchartUtil.init();
-
 		Lib.current.stage.window.setIcon(Paths.library.getImage(CoolVars.data.icon + '.png'));
 
 		final soundTray:SoundTray = cast FlxG.game.soundTray;
@@ -376,7 +370,7 @@ class Main extends Sprite
 		if (soundTray != null)
 		{
 			soundTray.font = Paths.font('jetbrains.ttf');
-			soundTray.sound = Paths.sound('tick');
+			soundTray.sound = Paths.sound('click');
 		}
 
 		UIUtils.OBJECT_SIZE = 25;
