@@ -39,8 +39,7 @@ package scripting;
 
         core.backend.MusicBeatState,
         core.backend.MusicBeatSubState,
-
-        funkin.states.PlayState,
+        
         funkin.states.CustomState,
         funkin.substates.CustomSubState,
 
