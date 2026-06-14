@@ -287,9 +287,9 @@ class Main extends Sprite
 		FlxG.stage.removeChild(debugCounter);
     }
 
-	@:unreflective static var allowMobileConfig:Bool = true;
+	static var allowMobileConfig:Bool = true;
 
-    @:unreflective public static function postResetConfig()
+    public static function postResetConfig()
     {
 		if (allowMobileConfig)
 		{
