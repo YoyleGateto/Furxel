@@ -7,6 +7,7 @@ import flixel.addons.display.FlxGridOverlay;
 import flixel.util.FlxSave;
 
 import sys.FileSystem;
+import sys.io.File;
 
 import api.MobileAPI;
 
