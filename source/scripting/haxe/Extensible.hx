@@ -85,17 +85,12 @@ class ScriptedHScriptPresetBase extends HScriptPresetBase implements RuleScripte
 #end
 
 class ScriptedFunkinSprite extends FunkinSprite implements RuleScriptedClass {}
-class ScriptedCharacter extends Character implements RuleScriptedClass {}
-class ScriptedIcon extends Icon implements RuleScriptedClass {}
 
 class ScriptedFXCamera extends FXCamera implements RuleScriptedClass {}
 class ScriptedCamera extends Camera implements RuleScriptedClass {}
 
 class ScriptedRuntimeShader extends RuntimeShader implements RuleScriptedClass {}
 class ScriptedFXShader extends FXShader implements RuleScriptedClass {}
-
-class ScriptedModchartManager extends ModchartManager implements RuleScriptedClass {}
-class ScriptedModchartModifier extends ModchartModifier implements RuleScriptedClass {}
 
 // ALE UI
 
