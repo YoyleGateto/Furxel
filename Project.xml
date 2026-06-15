@@ -64,8 +64,6 @@
 	<haxelib name="grig.audio"/>
 	<haxelib name="funkin.vis"/>
 
-	<haxelib name="ale-ui"/>
-
 	<haxelib name="flixel-animate"/>
 
 	<haxelib name="flxsoundfilters"/>
@@ -83,7 +81,6 @@
 	<haxelib name="hxdiscord_rpc" if="DISCORD_ALLOWED"/>
 
 	<haxelib name="sl-windows-api"/>
-	<haxelib name="window-modcharting"/>
 
 	<define name="WM_ENGINE" value="ALE_PSYCH"/>
 
