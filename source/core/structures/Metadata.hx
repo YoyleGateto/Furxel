@@ -22,7 +22,7 @@ typedef Metadata =
 
     var discordID:String;
 
-    var discordButtons:Array<ALEDataDiscordButton>;
+    var discordButtons:Array<DiscordButton>;
 
     var modID:Null<String>;
 }
