@@ -62,10 +62,6 @@ class LuaPreset
         new LuaVideoSprite(lua);
         #end
 
-        new LuaConductor(lua);
-
-        // new LuaMobile(lua);
-
         new LuaRemoved(lua);
     }
 }

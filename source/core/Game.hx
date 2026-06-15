@@ -30,8 +30,6 @@ class Game extends FlxGame
 
 		super.update();
 
-		Conductor.update();
-
 		if (Controls.CONTROL && Controls.SHIFT)
 		{
 			if (CoolVars.data.developerMode)
