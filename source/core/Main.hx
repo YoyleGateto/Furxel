@@ -9,8 +9,6 @@ import openfl.display.Sprite;
 import openfl.ui.Mouse;
 import openfl.Lib;
 
-import ale.ui.UIUtils;
-
 #if LUA_ALLOWED
 import hxluajit.wrapper.LuaError;
 #end
@@ -364,12 +362,7 @@ class Main extends Sprite
 			soundTray.font = Paths.font('jetbrains.ttf');
 			soundTray.sound = Paths.sound('click');
 		}
-
-		UIUtils.OBJECT_SIZE = 25;
-		UIUtils.FONT = Paths.font('jetbrains.ttf');
-		UIUtils.COLOR = FlxColor.fromRGB(50, 70, 100);
-		UIUtils.OUTLINE_COLOR = FlxColor.WHITE;
-
+		
 		#if LUA_ALLOWED
 		LuaError.errorHandler = (e:String) -> {
 			debugTrace(e, ERROR);
