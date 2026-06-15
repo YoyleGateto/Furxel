@@ -38,7 +38,7 @@ class Paths
     @:unreflective static var usedCommandMod:Bool = false;
 
     public static final assets:String = 'assets';
-    public static final mods:String = 'mods';
+    public static final mods:String = 'games';
     public static var mod:Null<String> = UNIQUE_MOD;
 
     @:unreflective public static function initMod()

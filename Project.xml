@@ -2,7 +2,7 @@
 <project xmlns="http://lime.openfl.org/project/1.0.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/xsd/project-1.0.4.xsd">
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Friday Night Funkin': ALE Psych" file="ALEPsych" packageName="com.alepsychcrew.alepsych" package="com.alepsychcrew.alepsych" main="core.Main" version="0.0.1" company="ALEPsychCrew"/>
+	<app title="Furxel" file="Furxel" packageName="com.erickcatmanuel.furxel" package="com.erickcatmanuel.furxel" main="core.Main" version="0.0.1" company="ErickCatmanuel"/>
 
 	<set name="APP_ID" value="0x0100f6c013bbc000"/>
 
@@ -48,7 +48,7 @@
 
 	<assets path="assets" embed="false"/>
 	<assets path="defines" embed="false"/>
-	<assets path="mods" embed="false"/>
+	<assets path="games" embed="false"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 	
@@ -141,7 +141,8 @@
 	<icon path="art/icon16.png" size='16'/>
 	<icon path="art/icon32.png" size='32'/>
 	<icon path="art/icon64.png" size='64'/>
-	<icon path="art/iconOG.png"/>
+	<icon path="art/iconOG.png" unless="mobile"/>
+	<icon path="art/iconMobile.png" if="mobile"/>
 
 	<!-- ______________________________ ALSoft Config ______________________________ -->
 

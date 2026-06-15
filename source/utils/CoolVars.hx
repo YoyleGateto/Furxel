@@ -2,7 +2,7 @@ package utils;
 
 import api.DesktopAPI;
 
-import core.structures.ALEData;
+import core.structures.Metadata;
 import core.Main;
 
 import utils.cool.EngineUtil;
@@ -35,7 +35,7 @@ class CoolVars
 	public static final Function_Stop:String = '##_ALE_PSYCH_LUA_FUNCTION_STOP_##';
 	public static final Function_Continue:String = '##_ALE_PSYCH_LUA_FUNCTION_CONTINUE_##';
 
-	public static var data:ALEData = null;
+	public static var data:Metadata = null;
 
 	#if mobile
 	public static final mobile:Bool = true;
@@ -78,7 +78,7 @@ class CoolVars
 			modID: null
 		};
 
-		var json:Null<ALEData> = null;
+		var json:Null<Metadata> = null;
 
 		for (path in [Paths.mods + '/' + Paths.mod, Paths.assets])
 			if (FileSystem.exists(path + '/meta.json'))

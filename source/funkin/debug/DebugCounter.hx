@@ -48,8 +48,8 @@ class DebugCounter extends Sprite
                 }
             }
 
-            return 'FPS: ' + Math.floor(fps) + ' | GC: ' + memoryString + ' / ' + memoryPeakString +
-                '\n' + (Paths.mod == null ? 'ALE Psych' : Paths.mod) + (CoolVars.data.developerMode ? ' - Developer Mode' : '');
+            return 'FPS: ' + Math.floor(fps) + ' | MEM: ' + memoryString + ' / ' + memoryPeakString +
+                '\n' + (Paths.mod == null ? 'Made with Furxel' : Paths.mod) + (CoolVars.data.developerMode ? ' - Developer Mode' : '');
         });
 
         addField(() -> {

@@ -166,7 +166,7 @@ import lime.utils.Bytes;
 		        }
 		
 				changeShit();
-	     	   FlxG.sound.play(Paths.sound('scrollMenu'));
+	     	   FlxG.sound.play(Paths.sound('click'));
 			}
 	    } else {
 	    	holdElapsed = 0.0;

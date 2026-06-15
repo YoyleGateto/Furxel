@@ -267,8 +267,6 @@ class Main extends Sprite
 
 			FlxG.sound.music = null;
 		}
-
-        Conductor.destroy();
 		
 		PluginsHandler.destroy();
 
@@ -354,8 +352,6 @@ class Main extends Sprite
 		Discord.init();
 
         CoolUtil.init();
-
-        Conductor.init();
 
 		HScriptConfig.config();
 

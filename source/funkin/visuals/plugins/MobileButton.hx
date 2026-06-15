@@ -20,8 +20,11 @@ class MobileButton extends FlxSpriteGroup implements ITactileButton
 
         radius ??= 50;
 
-        bg = new FlxShapeCircle(0, 0, radius, {thickness: 3, color: 0xFF404040}, FlxColor.GRAY);
+        bg = new FlxSprite(0, 0).loadGraphic(Paths.image("ui/button"), true, 44, 45);
+        bg.animation.add('idle', [0], 1, true);
+        bg.animation.add('press', [1], 1, true);
         add(bg);
+        bg.animation.play('idle');
         bg.active = false;
 
         label = new FlxText(0, 0, 0, labelText, Std.int(radius * 1.25));
@@ -58,6 +61,8 @@ class MobileButton extends FlxSpriteGroup implements ITactileButton
                 pressed = justPressed = true;
 
                 alpha = 1;
+                
+                bg.animation.play('press');
             }
         }
 
@@ -68,6 +73,8 @@ class MobileButton extends FlxSpriteGroup implements ITactileButton
             justReleased = true;
     
             alpha = 0.75;
+            
+            bg.animation.play('idle');
         }
     }
     
