@@ -10,6 +10,7 @@ package scripting;
         flixel.FlxCamera,
         flixel.math.FlxMath,
         flixel.util.FlxTimer,
+        flixel.util.FlxAxes,
         flixel.text.FlxText,
         flixel.tweens.FlxEase,
         flixel.tweens.FlxTween,
@@ -29,8 +30,7 @@ package scripting;
         haxe.ds.StringMap,
         haxe.ds.IntMap,
         haxe.ds.EnumValueMap,
-
-        utils.Conductor,
+        
         utils.CoolUtil,
         utils.CoolVars,
         utils.Controls,
