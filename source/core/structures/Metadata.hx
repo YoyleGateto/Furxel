@@ -1,6 +1,6 @@
 package core.structures;
 
-typedef ALEData =
+typedef Metadata =
 {
     var developerMode:Bool;
     var mobileDebug:Bool;

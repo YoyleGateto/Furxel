@@ -23,7 +23,7 @@ import haxe.Exception;
 
 import core.interfaces.IScriptState;
 
-class ScriptSubState extends MusicBeatSubState implements IScriptState
+class ScriptSubState extends SubState implements IScriptState
 {
     public static var instance:ScriptSubState;
 

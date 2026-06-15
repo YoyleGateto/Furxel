@@ -31,11 +31,9 @@ import utils.cool.LogUtil.benchmark;
 
 import core.backend.State;
 import core.backend.ScriptState;
-import core.backend.MusicBeatState;
 
 import core.backend.SubState;
 import core.backend.ScriptSubState;
-import core.backend.MusicBeatSubState;
 
 import core.config.Discord;
 

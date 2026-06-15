@@ -1,6 +1,6 @@
 package core.structures;
 
-typedef ALEDataDiscordButton =
+typedef DiscordButton =
 {
     var label:Null<String>;
     var url:Null<String>;
