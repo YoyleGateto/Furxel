@@ -56,8 +56,6 @@ import haxe.Exception;
 import api.DesktopAPI;
 import api.MobileAPI;
 
-import utils.Formatter;
-
 import cpp.vm.tracy.TracyProfiler;
 
 #if WINDOWS_API
@@ -356,8 +354,6 @@ class Main extends Sprite
 		HScriptConfig.config();
 
 		PluginsHandler.init();
-
-		Formatter.init();
 
 		Lib.current.stage.window.setIcon(Paths.library.getImage(CoolVars.data.icon + '.png'));
 

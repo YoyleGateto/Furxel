@@ -9,7 +9,7 @@ class MobileButton extends FlxSpriteGroup implements ITactileButton
 {
     public var keys:Array<FlxKey>;
 
-    public var bg:FlxShapeCircle;
+    public var bg:FlxSprite;
     public var label:FlxText;
 
     public function new(keys:Array<FlxKey>, labelText:String, ?radius:Int)
