@@ -83,7 +83,6 @@ class ScriptedHScriptPresetBase extends HScriptPresetBase implements RuleScripte
 
 class ScriptedFunkinSprite extends FunkinSprite implements RuleScriptedClass {}
 
-class ScriptedFXCamera extends FXCamera implements RuleScriptedClass {}
 class ScriptedCamera extends Camera implements RuleScriptedClass {}
 
 class ScriptedRuntimeShader extends RuntimeShader implements RuleScriptedClass {}
