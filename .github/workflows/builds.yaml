@@ -4,7 +4,6 @@ description: Payaso Esponja Horror Horripilante Abuelita Miedo
 on:
   push:
   workflow_dispatch:
-  	run-name: Test Build
 
 jobs:
   build:
