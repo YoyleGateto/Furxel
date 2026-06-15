@@ -24,12 +24,9 @@ import scripting.lua.*;
 
 import funkin.debug.*;
 import funkin.visuals.*;
-import funkin.modchart.*;
 import funkin.visuals.game.*;
 import funkin.visuals.objects.*;
 import funkin.visuals.shaders.*;
-
-import ale.ui.*;
 
 import utils.*;
 
@@ -91,9 +88,3 @@ class ScriptedCamera extends Camera implements RuleScriptedClass {}
 
 class ScriptedRuntimeShader extends RuntimeShader implements RuleScriptedClass {}
 class ScriptedFXShader extends FXShader implements RuleScriptedClass {}
-
-// ALE UI
-
-class ScriptedMouseSprite extends MouseSprite implements RuleScriptedClass {}
-
-class ScriptedUISprite extends UISprite implements RuleScriptedClass {}

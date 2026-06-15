@@ -17,7 +17,7 @@ import flixel.graphics.FlxGraphic;
 import lime.graphics.Image;
 import lime.utils.Bytes;
 
-@:unreflective class ModsMenuSubState extends MusicBeatSubState
+@:unreflective class ModsMenuSubState extends SubState
 {
     var sprites:FlxTypedGroup<FlxText> = new FlxTypedGroup<FlxText>();
 	var icons:FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
