@@ -6,12 +6,9 @@ import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxSave;
 
 import utils.cool.FileUtil;
-import utils.Score;
 
 class Save
 {
-    public var score:FlxSave;
-
     public var preferences:FlxSave;
 
     public var custom:FlxSave;
@@ -25,9 +22,6 @@ class Save
         preferences = new FlxSave();
 		preferences.bind('preferences', FileUtil.getSavePath());
 
-        score = new FlxSave();
-        score.bind('score', FileUtil.getSavePath());
-
         custom = new FlxSave();
         custom.bind('custom', FileUtil.getSavePath());
 
@@ -36,25 +30,6 @@ class Save
 
         customControls = new FlxSave();
         customControls.bind('customControls', FileUtil.getSavePath());
-    }
-
-    public function loadScore()
-    {
-        CoolUtil.save.score.data.song ??= new StringMap<Float>();
-
-        Score.song = CoolUtil.save.score.data.song;
-
-        CoolUtil.save.score.data.week ??= new StringMap<Float>();
-
-        Score.week = CoolUtil.save.score.data.week;
-
-        CoolUtil.save.score.data.rating ??= new StringMap<Float>();
-
-        Score.rating = CoolUtil.save.score.data.rating;
-
-        CoolUtil.save.score.data.completed ??= new StringMap<Bool>();
-
-        Score.completed = CoolUtil.save.score.data.completed;
     }
 
     public function loadPreferences()
@@ -129,19 +104,6 @@ class Save
 		custom.flush();
     }
 
-    public function saveScore()
-    {
-		CoolUtil.save.score.data.song = Score.song;
-		
-		CoolUtil.save.score.data.week = Score.week;
-
-		CoolUtil.save.score.data.rating = Score.rating;
-
-        CoolUtil.save.score.data.completed = Score.completed;
-        
-		CoolUtil.save.score.flush();
-    }
-
     public function saveControls()
     {
         controls.data.settings = ClientPrefs.controls;
@@ -156,8 +118,6 @@ class Save
         try
         {
             loadPreferences();
-
-            loadScore();
             
             loadControls();
         } catch(e) {
@@ -170,8 +130,6 @@ class Save
         try
         {
             savePreferences();
-
-            saveScore();
 
             saveControls();
         } catch(e) {
@@ -203,10 +161,7 @@ class Save
         ClientPrefs.controls = {};
         
         ClientPrefs.customControls = {};
-
-        score.destroy();
-        score = null;
-
+        
         preferences.destroy();
         preferences = null;
 
