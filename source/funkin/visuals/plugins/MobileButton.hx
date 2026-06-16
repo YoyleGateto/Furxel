@@ -9,7 +9,7 @@ class MobileButton extends FlxSpriteGroup
     public var bg:FlxSprite;
     public var label:FlxText;
 
-    public function new(?X:Float = 0.0, ?Y:Float = 0.0, keyStr:String, labelText:String)
+    public function new(?X:Float = 0, ?Y:Float = 0, keyStr:String, labelText:String)
     {
         super(X, Y);
 
