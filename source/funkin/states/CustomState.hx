@@ -14,23 +14,17 @@ class CustomState extends ScriptState
     @:unreflective private var reloadThread:Bool = CoolVars.data.developerMode && CoolVars.data.scriptsHotReloading;
     #end
 
-    public var hsArguments:Array<Dynamic>;
-    public var luaArguments:Array<Dynamic>;
-    
-    public var hsVariables:StringMap<Dynamic>;
-    public var luaVariables:StringMap<Dynamic>;
+    public var arguments:Array<Dynamic>;
+    public var variables:StringMap<Dynamic>;
 
-    override public function new(script:String, ?hsArguments:Array<Dynamic>, ?luaArguments:Array<Dynamic>, ?hsVariables:StringMap<Dynamic>, ?luaVariables:StringMap<Dynamic>)
+    override public function new(script:String, ?arguments:Array<Dynamic>, ?variables:StringMap<Dynamic>)
     {
         super();
 
         scriptName = script;
 
-        this.hsArguments = hsArguments;
-        this.luaArguments = luaArguments;
-
-        this.hsVariables = hsVariables;
-        this.luaVariables = luaVariables;
+        this.arguments = arguments;
+        this.variables = variables;
     }
 
     @:unreflective var watchFiles:Array<String> = [];
@@ -39,26 +33,21 @@ class CustomState extends ScriptState
     {        
         super.create();
 
-        loadScript('scripts/states/' + scriptName, hsArguments, luaArguments);
+        loadScript('scripts/states/' + scriptName, arguments);
         
-        loadScript('scripts/states/global', hsArguments, luaArguments);
+        loadScript('scripts/states/global', arguments);
 
-        for (map in [hsVariables, luaVariables])
-            if (map != null)
-                for (key in map.keys())
-                    if (map == hsVariables)
-                        setOnHScripts(key, map.get(key));
-                    else
-                        setOnLuaScripts(key, map.get(key));
+        if (variables != null)
+            for (key in map.keys())
+            	setOnScripts(key, map.get(key));
 
         #if cpp
         FlxG.autoPause = !CoolVars.data.developerMode || !CoolVars.data.scriptsHotReloading;
 
         if (CoolVars.data.scriptsHotReloading && CoolVars.data.developerMode)
         {
-            for (ext in ['.hx', '.lua'])
-                for (file in [scriptName, 'global'])
-                    addHotReloadingFile('scripts/states/' + file + ext);
+            for (file in [scriptName, 'global'])
+            	addHotReloadingFile('scripts/states/' + file + '.hx');
 
             callOnScripts('onHotReloadingConfig');
 
@@ -164,7 +153,7 @@ class CustomState extends ScriptState
     {
         shouldClearMemory = false;
 
-        CoolUtil.switchState(new CustomState(scriptName, hsArguments, luaArguments, hsVariables, luaVariables), true, true);
+        CoolUtil.switchState(new CustomState(scriptName, arguments, variables), true, true);
 
         #if cpp
         if (CoolVars.data.scriptsHotReloading && CoolVars.data.developerMode)

@@ -6,40 +6,30 @@ class CustomSubState extends ScriptSubState
 {
     public var scriptName:String = '';
 
-    public var hsArguments:Array<Dynamic>;
-    public var luaArguments:Array<Dynamic>;
-    
-    public var hsVariables:StringMap<Dynamic>;
-    public var luaVariables:StringMap<Dynamic>;
+    public var arguments:Array<Dynamic>;
+    public var variables:StringMap<Dynamic>;
 
-    override public function new(script:String, ?hsArguments:Array<Dynamic>, ?luaArguments:Array<Dynamic>, ?hsVariables:StringMap<Dynamic>, ?luaVariables:StringMap<Dynamic>)
+    override public function new(script:String, ?arguments:Array<Dynamic>, ?variables:StringMap<Dynamic>)
     {
         super();
 
         scriptName = script;
 
-        this.hsArguments = hsArguments;
-        this.luaArguments = luaArguments;
-
-        this.hsVariables = hsVariables;
-        this.luaVariables = luaVariables;
+        this.arguments = arguments;
+        this.variables = variables;
     }
 
     override public function create()
     {        
         super.create();
 
-        loadScript('scripts/substates/' + scriptName, hsArguments, luaArguments);
+        loadScript('scripts/substates/' + scriptName, arguments);
         
-        loadScript('scripts/substates/global', hsArguments, luaArguments);
+        loadScript('scripts/substates/global', arguments);
 
-        for (map in [hsVariables, luaVariables])
-            if (map != null)
-                for (key in map.keys())
-                    if (map == hsVariables)
-                        setOnHScripts(key, map.get(key));
-                    else
-                        setOnLuaScripts(key, map.get(key));
+        if (variables != null)
+            for (key in variables.keys())
+                setOnScripts(key, map.get(key));
 
         openCallback = function() {
             scriptCallbackCall(ON, 'Open');

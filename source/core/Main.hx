@@ -242,8 +242,6 @@ class Main extends Sprite
 	
 	public static var debugPrintPlugin:DebugPrintPlugin;
 
-	public static var mobileControlsPlugin:MobileControlsPlugin;
-
     @:unreflective public static function preResetConfig()
     {
 		DesktopAPI.reset();
@@ -269,8 +267,6 @@ class Main extends Sprite
 		Discord.destroy();
 
 		debugPrintPlugin = null;
-
-		mobileControlsPlugin = null;
 
 		CoolVars.reset();
 
@@ -375,9 +371,6 @@ class Main extends Sprite
 		
 		if (CoolVars.data.allowDebugPrint && CoolVars.data.developerMode)
 			PluginsHandler.add(debugPrintPlugin = new DebugPrintPlugin());
-
-		if (CoolVars.mobile)
-			PluginsHandler.add(mobileControlsPlugin = new MobileControlsPlugin());
 
 		MobileAPI.setOrientation(LANDSCAPE);
     }

@@ -9,7 +9,7 @@ import flixel.util.FlxSave;
 import sys.FileSystem;
 import sys.io.File;
 
-import api.MobileAPI;
+import funkin.visuals.plugins.MobileButton;
 
 import openfl.display3D.textures.RectangleTexture;
 import openfl.display.BitmapData;
@@ -22,6 +22,8 @@ import lime.utils.Bytes;
     var sprites:FlxTypedGroup<FlxText> = new FlxTypedGroup<FlxText>();
 	var icons:FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
 	
+	var buttons:FlxTypedGroup<MobileButton> = new FlxTypedGroup<MobileButton>();
+	
 	var selInt:Int = 0;
 	
 	var holdElapsed:Float = 0.0;
@@ -33,7 +35,7 @@ import lime.utils.Bytes;
 	final DISABLE_ID:String = 'Example';
 	
 	function getModIcon(name:String, ?gpuCache:Bool = false) {
-		var path = Paths.mods + "/" + name + "/icon.png";
+		var path = Paths.mods + '/' + name + '/icon.png';
 		
 		if (!FileSystem.exists(path)) return null;
 		
@@ -84,15 +86,16 @@ import lime.utils.Bytes;
 	
 	    add(sprites);
 	    add(icons);
+		add(buttons);
 	
 	    for (option in options)
 	    {
 	        var sprite = new FlxText(-1280, 125*options.indexOf(option), 0, option);
-	        sprite.setFormat(Paths.font("jetbrains.ttf"), 60, FlxColor.WHITE, "left");
+	        sprite.setFormat(Paths.font('jetbrains.ttf'), 60, FlxColor.WHITE, 'left');
 	        sprites.add(sprite);
 	        sprite.cameras = [subCamera];
 	        
-	        var graphic = getModIcon(option) ?? Paths.image("unknownIcon");
+	        var graphic = getModIcon(option) ?? Paths.image('unknownIcon');
 	        var icon = new FlxSprite(-150, -150).loadGraphic(graphic);
 	        icon.setGraphicSize(100,100);
 	        icon.updateHitbox();
@@ -103,14 +106,18 @@ import lime.utils.Bytes;
 	
 	    changeShit();
 	
-	    MobileAPI.toggleButtons(false, false);
-	
-	    MobileAPI.createButtons(FlxG.width - 100, FlxG.height - 100, [{label: 'A', keys: ClientPrefs.controls.ui.accept}], null, true);
-	
-	    MobileAPI.createButtons(100, FlxG.height - 200, [
-	        {label: 'D', keys: ClientPrefs.controls.ui.down},
-	        {label: 'U', keys: ClientPrefs.controls.ui.up},
-	    ], null, true);
+	    var accept:MobileButton = new MobileButton(FlxG.width - 100, FlxG.height - 100, 'ENTER', 'A');
+		buttons.add(accept);
+		
+		var up:MobileButton = new MobileButton(50, FlxG.height - 200, 'UP', 'U');
+		buttons.add(up);
+		
+		var down:MobileButton = new MobileButton(50, FlxG.height - 100, 'DOWN', 'D');
+		buttons.add(down);
+		
+		for (btn in buttons) {
+			btn.cameras = [subCamera];
+		}
 	}
 	
 	override function update(elapsed:Float)
@@ -142,14 +149,14 @@ import lime.utils.Bytes;
 	        CoolUtil.resetGame();
 	    }
 	    
-	    if (Controls.UI_DOWN || Controls.UI_UP)
+	    if (Controls.pressed("DOWN") || Controls.pressed("UP"))
 	    {
 	    	if (holdElapsed < 0.5) {
 	    		holdElapsed += elapsed;
 	    	} else {
 	    		holdElapsed = 0.45;
 	    		
-	    		if (Controls.UI_DOWN)
+	    		if (Controls.pressed("DOWN"))
 		        {
 		            if (selInt >= sprites.members.length - 1)
 		                selInt = 0;
@@ -157,7 +164,7 @@ import lime.utils.Bytes;
 		                selInt++;
 		        }
 		    
-		        if (Controls.UI_UP)
+		        if (Controls.pressed("UP"))
 		        {
 		            if (selInt == 0)
 		                selInt = sprites.members.length - 1;
@@ -172,9 +179,9 @@ import lime.utils.Bytes;
 	    	holdElapsed = 0.0;
 	    }
 	
-	    if (Controls.UI_DOWN_P || Controls.UI_UP_P || Controls.MOUSE_WHEEL)
+	    if (Controls.justPressed("UP") || Controls.justPressed("UP")  || FlxG.mouse.wheel != 0)
 	    {
-	        if (Controls.UI_DOWN_P || Controls.MOUSE_WHEEL_DOWN)
+	        if (Controls.justPressed("DOWN") || FlxG.mouse.wheel > 0)
 	        {
 	            if (selInt >= sprites.members.length - 1)
 	                selInt = 0;
@@ -182,7 +189,7 @@ import lime.utils.Bytes;
 	                selInt++;
 	        }
 	    
-	        if (Controls.UI_UP_P || Controls.MOUSE_WHEEL_UP)
+	        if (Controls.justPressed("UP") || FlxG.mouse.wheel < 0)
 	        {
 	            if (selInt == 0)
 	                selInt = sprites.members.length - 1;

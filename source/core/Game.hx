@@ -30,17 +30,17 @@ class Game extends FlxGame
 
 		super.update();
 
-		if (Controls.CONTROL && Controls.SHIFT)
+		if (Controls.pressed('CONTROL') && Controls.pressed('SHIFT'))
 		{
 			if (CoolVars.data.developerMode)
 			{
-				if (FlxG.keys.anyJustPressed(ClientPrefs.controls.engine.reset_game))
+				if (Controls.justPressed("R"))
 					CoolUtil.resetGame();
 			}
 
 			if (Paths.UNIQUE_MOD == null)
 			{
-				if (FlxG.keys.anyJustPressed(ClientPrefs.controls.engine.switch_mod))
+				if (Controls.justPressed("TAB"))
 				{
 					if (FlxG.state.subState != null)
 						FlxG.state.subState.close();
@@ -51,7 +51,7 @@ class Game extends FlxGame
 		}
 
 		#if WINDOWS_API
-		if (FlxG.keys.justPressed.F2)
+		if (Controls.justPressed("F2"))
 		{
 			if (!visibleConsole)
 				DesktopAPI.showConsole();
