@@ -10,7 +10,6 @@ package scripting;
         flixel.FlxCamera,
         flixel.math.FlxMath,
         flixel.util.FlxTimer,
-        flixel.util.FlxAxes,
         flixel.text.FlxText,
         flixel.tweens.FlxEase,
         flixel.tweens.FlxTween,
@@ -47,6 +46,7 @@ package scripting;
 
     public static final ABSTRACTS:Array<String> = [
         'flixel.util.FlxColor',
+        'flixel.util.FlxAxes',
         'flixel.tweens.FlxTween.FlxTweenType'
     ];
 
