@@ -1,6 +1,5 @@
 package funkin.visuals.plugins;
 
-import flixel.addons.display.shapes.FlxShapeCircle;
 import flixel.input.keyboard.FlxKey;
 
 import core.interfaces.ITactileButton;
@@ -25,6 +24,8 @@ class MobileButton extends FlxSpriteGroup implements ITactileButton
         bg.animation.add('press', [1], 1, true);
         add(bg);
         bg.animation.play('idle');
+        bg.scale.set(4.5,4.5);
+        bg.updateHitbox();
         bg.active = false;
 
         label = new FlxText(0, 0, 0, labelText, Std.int(radius * 1.25));
@@ -47,6 +48,8 @@ class MobileButton extends FlxSpriteGroup implements ITactileButton
     override function update(elapsed:Float)
     {
         super.update(elapsed);
+
+        label.y = (bg.y + (pressed ? 50.0 : 0.0)) + bg.height / 2 - label.height / 2;
         
         if (justPressed)
             justPressed = false;
