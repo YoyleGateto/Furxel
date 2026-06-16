@@ -33,7 +33,7 @@ import lime.utils.Bytes;
 	final DISABLE_ID:String = 'Example';
 	
 	function getModIcon(name:String, ?gpuCache:Bool = false) {
-		var path = "mods/" + name + "/icon.png";
+		var path = Paths.mods + "/" + name + "/icon.png";
 		
 		if (!FileSystem.exists(path)) return null;
 		
@@ -66,10 +66,10 @@ import lime.utils.Bytes;
 	{
 	    super.create();
 	
-	    if (FileSystem.exists('mods'))
-	        if (FileSystem.isDirectory('mods'))
-	            for (folder in FileSystem.readDirectory('mods'))
-	                if (FileSystem.isDirectory('mods/' + folder) && folder != '.git')
+	    if (FileSystem.exists(Paths.mods))
+	        if (FileSystem.isDirectory(Paths.mods))
+	            for (folder in FileSystem.readDirectory(Paths.mods))
+	                if (FileSystem.isDirectory(Paths.mods + '/' + folder) && folder != '.git')
 	                    options.push(folder);
 	
 	    options.push(DISABLE_ID);
