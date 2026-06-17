@@ -25,13 +25,13 @@ interface IScriptState
     public var hsCustomCallbacks:Array<Class<HScriptPresetBase>>;
     #end
 
-    public function loadScript(path:String, ?hsArgs:Array<Dynamic>, ?luaArgs:Array<Dynamic>):Void;
+    public function loadScript(path:String, ?args:Array<Dynamic>):Void;
     
     public function setOnScripts(name:String, value:Dynamic):Void;
     
     public function callOnScripts(callback:String, ?arguments:Array<Dynamic> = null):Array<Dynamic>;
     
-    public function scriptCallbackCall(type:ScriptCallType, id:String, ?globalArgs:Array<Dynamic>, ?hxArgs:Array<Dynamic>, ?luaArgs:Array<Dynamic>):Bool;
+    public function scriptCallbackCall(type:ScriptCallType, id:String, ?args:Array<Dynamic>):Bool;
 
     public function destroyScripts():Void;
     
