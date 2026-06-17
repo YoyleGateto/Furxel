@@ -189,7 +189,7 @@ import lime.utils.Bytes;
 	                selInt++;
 	        }
 	    
-	        if (Controls.justPressed("UP") || FlxG.mouse.wheel < 0)
+	        if (Controls.keyJustPressed("UP") || FlxG.mouse.wheel < 0)
 	        {
 	            if (selInt == 0)
 	                selInt = sprites.members.length - 1;

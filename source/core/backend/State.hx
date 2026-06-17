@@ -38,9 +38,7 @@ class State extends FlxState
             CoolUtil.openSubState(new CustomSubState(
                 CoolVars.data.transition,
                 [false, null],
-                [false],
 				null,
-                ['finishCallback' => null]
             ));
             #end
         }

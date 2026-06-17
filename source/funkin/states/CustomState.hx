@@ -92,7 +92,7 @@ class CustomState extends ScriptState
         {
             super.update(elapsed);
 
-            if (Controls.RESET && CoolVars.data.developerMode)
+            if (Controls.keyPressed('CONTROL') && Controls.keyPressed('CONTROL')Controls.keyJustPressed('R') && CoolVars.data.developerMode)
                 resetCustomState();
         }
 
@@ -135,10 +135,10 @@ class CustomState extends ScriptState
 
     override public function openSubState(substate:flixel.FlxSubState):Void
     {
-        if (scriptCallbackCall(ON, 'OpenSubState', null, [substate], [Type.getClassName(Type.getClass(substate))]))
+        if (scriptCallbackCall(ON, 'OpenSubState', null, [substate]))
             super.openSubState(substate);
 
-        scriptCallbackCall(POST, 'OpenSubState', null, [substate], [Type.getClassName(Type.getClass(substate))]);
+        scriptCallbackCall(POST, 'OpenSubState', null, [substate]);
     }
 
     override public function closeSubState():Void

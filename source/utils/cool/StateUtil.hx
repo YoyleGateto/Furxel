@@ -43,9 +43,7 @@ class StateUtil
 			openSubState(new CustomSubState(
 				CoolVars.data.transition,
                 [true, () -> { FlxG.switchState(state); }],
-                [true],
 				null,
-				['finishCallback' => () -> { FlxG.switchState(state); }]
 			));
 		}
 	}

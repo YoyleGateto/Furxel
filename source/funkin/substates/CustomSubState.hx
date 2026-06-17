@@ -29,7 +29,7 @@ class CustomSubState extends ScriptSubState
 
         if (variables != null)
             for (key in variables.keys())
-                setOnScripts(key, map.get(key));
+                setOnScripts(key, variables.get(key));
 
         openCallback = function() {
             scriptCallbackCall(ON, 'Open');
