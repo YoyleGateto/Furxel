@@ -137,7 +137,7 @@ import lime.utils.Bytes;
 	    subCamera.scroll.x = CoolUtil.fpsLerp(subCamera.scroll.x, camPos.x, 0.2);
 	    subCamera.scroll.y = CoolUtil.fpsLerp(subCamera.scroll.y, camPos.y, 0.2);
 	
-	    if (Controls.ACCEPT)
+	    if (Controls.keyJustPressed("ENTER"))
 	    { 
 	        var save:FlxSave = new FlxSave();
 	        save.bind('ALEEngineData', CoolUtil.getSavePath(false));
@@ -149,14 +149,14 @@ import lime.utils.Bytes;
 	        CoolUtil.resetGame();
 	    }
 	    
-	    if (Controls.pressed("DOWN") || Controls.pressed("UP"))
+	    if (Controls.keyPressed("DOWN") || Controls.keyPressed("UP"))
 	    {
 	    	if (holdElapsed < 0.5) {
 	    		holdElapsed += elapsed;
 	    	} else {
 	    		holdElapsed = 0.45;
 	    		
-	    		if (Controls.pressed("DOWN"))
+	    		if (Controls.keyPressed("DOWN"))
 		        {
 		            if (selInt >= sprites.members.length - 1)
 		                selInt = 0;
@@ -164,7 +164,7 @@ import lime.utils.Bytes;
 		                selInt++;
 		        }
 		    
-		        if (Controls.pressed("UP"))
+		        if (Controls.keyPressed("UP"))
 		        {
 		            if (selInt == 0)
 		                selInt = sprites.members.length - 1;
@@ -179,9 +179,9 @@ import lime.utils.Bytes;
 	    	holdElapsed = 0.0;
 	    }
 	
-	    if (Controls.justPressed("UP") || Controls.justPressed("UP")  || FlxG.mouse.wheel != 0)
+	    if (Controls.keyJustPressed("UP") || Controls.keyJustPressed("UP")  || FlxG.mouse.wheel != 0)
 	    {
-	        if (Controls.justPressed("DOWN") || FlxG.mouse.wheel > 0)
+	        if (Controls.keyJustPressed("DOWN") || FlxG.mouse.wheel > 0)
 	        {
 	            if (selInt >= sprites.members.length - 1)
 	                selInt = 0;

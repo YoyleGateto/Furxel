@@ -8,8 +8,6 @@ import cpp.vm.Gc;
 import hl.Gc;
 #end
 
-import api.MobileAPI;
-
 class State extends FlxState
 {
     public var camGame:Camera;
@@ -59,9 +57,7 @@ class State extends FlxState
 
 			resetSubState();
 		}
-
-        MobileAPI.controls?.update(FlxG.elapsed);
-
+		
         if (subState != null)
             subState.tryUpdate(elapsed);
 	}

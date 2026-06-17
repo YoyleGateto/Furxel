@@ -24,7 +24,7 @@ class MobileButton extends FlxSpriteGroup
         bg.updateHitbox();
         bg.active = false;
 
-        label = new FlxText(0, 0, 0, labelText, Std.int(radius * 1.25));
+        label = new FlxText(0, 0, 0, labelText, 60);
         add(label);
         label.font = Paths.font('poppins.ttf');
         label.color = FlxColor.BLACK;
@@ -53,7 +53,7 @@ class MobileButton extends FlxSpriteGroup
         if (justReleased)
             justReleased = false;
 
-        if (Controls.MOUSE_P)
+        if (FlxG.mouse.justPressed)
         {
             if (FlxG.mouse.overlaps(bg, cameras[0]))
             {
@@ -65,7 +65,7 @@ class MobileButton extends FlxSpriteGroup
             }
         }
 
-        if (pressed && !Controls.MOUSE)
+        if (pressed && !FlxG.mouse.pressed)
         {
             pressed = false;
     

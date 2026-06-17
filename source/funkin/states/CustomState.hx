@@ -38,8 +38,8 @@ class CustomState extends ScriptState
         loadScript('scripts/states/global', arguments);
 
         if (variables != null)
-            for (key in map.keys())
-            	setOnScripts(key, map.get(key));
+            for (key in variables.keys())
+            	setOnScripts(key, variables.get(key));
 
         #if cpp
         FlxG.autoPause = !CoolVars.data.developerMode || !CoolVars.data.scriptsHotReloading;
