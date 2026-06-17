@@ -54,7 +54,7 @@ class CustomSubState extends ScriptSubState
         {
             super.update(elapsed);
 
-            if (Controls.keyJustPressed('ESC') && CoolVars.data.developerMode)
+            if (Controls.keyPressed("CONTROL") && Controls.keyJustPressed('ESC') && CoolVars.data.developerMode)
                 close();
         }
 

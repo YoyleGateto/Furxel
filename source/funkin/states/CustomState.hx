@@ -92,7 +92,7 @@ class CustomState extends ScriptState
         {
             super.update(elapsed);
 
-            if (Controls.keyPressed('CONTROL') && Controls.keyPressed('CONTROL')Controls.keyJustPressed('R') && CoolVars.data.developerMode)
+            if (Controls.keyPressed('CONTROL') && Controls.keyPressed('SHIFT') && Controls.keyJustPressed('R') && CoolVars.data.developerMode)
                 resetCustomState();
         }
 
