@@ -135,10 +135,10 @@ class CustomState extends ScriptState
 
     override public function openSubState(substate:flixel.FlxSubState):Void
     {
-        if (scriptCallbackCall(ON, 'OpenSubState', null, [substate]))
+        if (scriptCallbackCall(ON, 'OpenSubState', [substate]))
             super.openSubState(substate);
 
-        scriptCallbackCall(POST, 'OpenSubState', null, [substate]);
+        scriptCallbackCall(POST, 'OpenSubState', [substate]);
     }
 
     override public function closeSubState():Void

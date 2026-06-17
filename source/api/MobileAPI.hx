@@ -31,16 +31,16 @@ class MobileAPI
     	var grp = null;
     
     	if (FlxG.state != null) {
-    		grp = FlxG.state.members;
+    		grp = FlxG.state;
     		if (FlxG.state.subState != null) {
-    			grp = FlxG.state.subState.members;
+    			grp = FlxG.state.subState;
     		}
     	}
     
     	if (grp != null) {
-    		for (mem in grp) {
-    			if (mem is MobileButton) {
-    				if (((checkType == PRESSED && mem.pressed) || (checkType == JUST_PRESSED && mem.justPessed) || (checkType == JUST_RELEASED && mem.justReleased)) && mem.key == key) {
+    		for (obj in grp.members) {
+    			if (obj is MobileButton) {
+    				if (((checkType == PRESSED && obj.pressed) || (checkType == JUST_PRESSED && obj.justPessed) || (checkType == JUST_RELEASED && obj.justReleased)) && obj.key == key) {
 						return true;
 					}
     			}
