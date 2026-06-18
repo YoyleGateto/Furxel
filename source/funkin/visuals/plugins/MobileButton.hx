@@ -1,6 +1,7 @@
 package funkin.visuals.plugins;
 
 import flixel.input.keyboard.FlxKey;
+import api.MobileAPI;
 
 class MobileButton extends FlxSpriteGroup
 {
@@ -44,7 +45,7 @@ class MobileButton extends FlxSpriteGroup
     override function update(elapsed:Float)
     {
         super.update(elapsed);
-
+        
         label.y = (bg.y + (pressed ? 0.0 : -10.0)) + bg.height / 2 - label.height / 2;
         
         if (justPressed)

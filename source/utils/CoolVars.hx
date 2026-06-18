@@ -58,7 +58,7 @@ class CoolVars
 			transition: 'Transition',
 
 			title: 'Furxel',
-			icon: 'images/appIcon',
+			icon: 'icon',
 			width: 1280,
 			height: 720,
 

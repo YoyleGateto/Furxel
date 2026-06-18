@@ -6,17 +6,22 @@ import extension.eightsines.EsOrientation;
 
 import flixel.input.keyboard.FlxKey;
 
+import core.plugins.MobileControlsPlugin;
+
 import core.enums.ScreenOrientation;
 import core.enums.StateType;
+import core.enums.KeyCheck;
 import core.enums.KeyCheck;
 
 import core.Main;
 
-import funkin.visuals.plugins.MobileButton;
-
 class MobileAPI
 {
     public static var orientation:ScreenOrientation = LANDSCAPE;
+
+    public static var controls(get, never):MobileControlsPlugin;
+    static function get_controls():MobileControlsPlugin
+        return Main.mobileControlsPlugin;
 
     public static function setOrientation(type:ScreenOrientation)
     {
@@ -26,27 +31,19 @@ class MobileAPI
 
         orientation = type;
     }
-    
-    public static function checkKey(key:FlxKey, checkType:KeyCheck):Bool {
-    	var grp = null;
-    
-    	if (FlxG.state != null) {
-    		grp = FlxG.state;
-    		if (FlxG.state.subState != null) {
-    			grp = FlxG.state.subState;
-    		}
-    	}
-    
-    	if (grp != null) {
-    		for (obj in grp.members) {
-    			if (obj is MobileButton) {
-    				if (((checkType == PRESSED && obj.pressed) || (checkType == JUST_PRESSED && obj.justPessed) || (checkType == JUST_RELEASED && obj.justReleased)) && obj.key == key) {
-						return true;
-					}
-    			}
-    		}
-    	}
-    
-    	return false;
-    }
+
+    public static function restartButtons(subState:Bool)
+        controls?.restartButtons(subState ? controls.subStateButtons : controls.stateButtons);
+
+    public static function destroyButtons(subState:Bool)
+        controls?.destroyButtons(subState ? controls.subStateButtons : controls.stateButtons);
+
+    public static function toggleButtons(subState:Bool, show:Bool)
+        controls?.toggleButtons(subState ? controls.subStateButtons : controls.stateButtons, show);
+
+    public static function createButton(x:Float, y:Float, label:String, key:String, ?subState:Bool)
+        controls?.createButton(x, y, label, key, subState);
+
+    public static function checkKey(key:FlxKey, prop:KeyCheck):Bool
+        return controls == null ? false : controls.checkKey(keys, prop);
 }

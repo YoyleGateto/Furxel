@@ -48,8 +48,7 @@ class DebugCounter extends Sprite
                 }
             }
 
-            return 'FPS: ' + Math.floor(fps) + ' | MEM: ' + memoryString + ' / ' + memoryPeakString +
-                '\n' + (Paths.mod == null ? 'Made with Furxel' : Paths.mod) + (CoolVars.data.developerMode ? ' - Developer Mode' : '');
+            return 'FPS: ' + Math.floor(fps) + ' \nMEM: ' + memoryString + '\n' + (Paths.mod == null ? 'Made with Furxel' : Paths.mod) + (CoolVars.data.developerMode ? ' [DEV]' : '');
         });
 
         addField(() -> {

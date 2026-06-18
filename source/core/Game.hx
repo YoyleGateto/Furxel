@@ -38,7 +38,7 @@ class Game extends FlxGame
 					CoolUtil.resetGame();
 			}
 
-			if (Paths.UNIQUE_MOD == null)
+			if (Paths.assetsMode)
 			{
 				if (Controls.keyJustPressed("TAB"))
 				{

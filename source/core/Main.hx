@@ -54,6 +54,8 @@ import haxe.Exception;
 import api.DesktopAPI;
 import api.MobileAPI;
 
+import core.plugins.MobileControlsPlugin;
+
 import cpp.vm.tracy.TracyProfiler;
 
 #if WINDOWS_API
@@ -95,7 +97,7 @@ class Main extends Sprite
 			{
 				AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
 				
-				CoolUtil.showPopUp('Notice', 'The game starts automatically when requesting permissions without them having been granted yet\n\nPlease start the game again once the permissions have been granted');
+				CoolUtil.showPopUp('Notice', 'Once you grant the Storage Permissions, Furxel will close itself to prevent any problems, so just open it again and you will be good to go.');
 
 				Sys.exit(0);
 
@@ -134,11 +136,13 @@ class Main extends Sprite
 				}
 
 				errMsg += "\nUncaught Error: " + e.error;
-			
+				
+				var title:String = (FlxG.random.int(1, 16) == 1) ? 'FURXEL DIED OMG!!1!1!' : 'Furxel Crashed Unexpectedly!';
+				
 				#if WINDOWS_API
-				DesktopAPI.showMessageBox(errMsg, 'ALE Psych ' + CoolVars.engineVersion + ' | Crash Handler', ERROR);
+				DesktopAPI.showMessageBox(errMsg, title, ERROR);
 				#else
-				Application.current.window.alert(errMsg, 'ALE Psych ' + CoolVars.engineVersion + ' | Crash Handler');
+				Application.current.window.alert(errMsg, title);
 				#end
 
 				Sys.println(errMsg);
@@ -241,6 +245,7 @@ class Main extends Sprite
 	public static var debugCounter:DebugCounter;
 	
 	public static var debugPrintPlugin:DebugPrintPlugin;
+	public static var mobileControlsPlugin:MobileControlsPlugin;
 
     @:unreflective public static function preResetConfig()
     {
@@ -358,20 +363,15 @@ class Main extends Sprite
 			soundTray.font = Paths.font('jetbrains.ttf');
 			soundTray.sound = Paths.sound('click');
 		}
-		
-		#if LUA_ALLOWED
-		LuaError.errorHandler = (e:String) -> {
-			debugTrace(e, ERROR);
-		};
-
-		Sys.putEnv('LUA_PATH', Sys.getCwd() + '/' + Paths.mods + '/' + Paths.mod + '/scripts/modules/?.lua;');
-		#end
 
 		FlxG.stage.addChild(debugCounter = new DebugCounter(Paths.exists('data/debug.json') ? cast Paths.json('data/debug').fields : []));
 		
 		if (CoolVars.data.allowDebugPrint && CoolVars.data.developerMode)
 			PluginsHandler.add(debugPrintPlugin = new DebugPrintPlugin());
-
+			
+		if (CoolVars.mobile)
+			PluginsHandler.add(mobileControlsPlugin = new MobileControlsPlugin());
+			
 		MobileAPI.setOrientation(LANDSCAPE);
     }
 }

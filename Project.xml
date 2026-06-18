@@ -34,7 +34,7 @@
 
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" vsync="false"/>
 
-	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true"/>
+	<window if="mobile" width="0" height="0" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true"/>
 
 	<!-- _____________________________ Path Settings ____________________________ -->
 

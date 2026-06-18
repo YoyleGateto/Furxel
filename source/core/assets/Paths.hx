@@ -33,7 +33,7 @@ import sys.io.File;
 
 class Paths
 {
-    @:unreflective public static var UNIQUE_MOD:Null<String> = null;
+    @:unreflective public static var assetsMode:Bool = false;
 
     @:unreflective static var usedCommandMod:Bool = false;
 
@@ -43,13 +43,10 @@ class Paths
 
     @:unreflective public static function initMod()
     {
-        UNIQUE_MOD = mod = null;
+        assetsMode = false;
+		mod = null;
 
         final modCheckSteps:Array<Void -> Void> = [
-            () -> {
-                if (Defines.CONTENT_MOD != null)
-                    UNIQUE_MOD = mod = File.getContent(Defines.CONTENT_MOD).split('\n')[0].trim();
-            },
             () -> {
                 if (Sys.args()[0] != null && !usedCommandMod)
                 {
@@ -67,18 +64,22 @@ class Paths
                     mod = save.data.currentMod;
             }
         ];
-
-        var curStep:Int = 0;
-
-        while (mod == null && curStep < modCheckSteps.length)
-        {
-            modCheckSteps[curStep]();
-                
-            if (!FileSystem.exists(mods + '/' + mod))
-                UNIQUE_MOD = mod = null;
-
-            curStep++;
-        }
+		
+		if (Defines.ASSETS_ONLY) {
+			assetsMode = true;
+		} else {
+	        var curStep:Int = 0;
+	
+	        while (mod == null && curStep < modCheckSteps.length)
+	        {
+	            modCheckSteps[curStep]();
+	                
+	            if (!FileSystem.exists(mods + '/' + mod))
+	                mod = null;
+	
+	            curStep++;
+	        }
+		}
     }
     
     public static final SEPARATOR:String = '::';

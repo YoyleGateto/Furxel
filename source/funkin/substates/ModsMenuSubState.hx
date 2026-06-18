@@ -9,7 +9,7 @@ import flixel.util.FlxSave;
 import sys.FileSystem;
 import sys.io.File;
 
-import funkin.visuals.plugins.MobileButton;
+import api.MobileAPI;
 
 import openfl.display3D.textures.RectangleTexture;
 import openfl.display.BitmapData;
@@ -21,8 +21,6 @@ import lime.utils.Bytes;
 {
     var sprites:FlxTypedGroup<FlxText> = new FlxTypedGroup<FlxText>();
 	var icons:FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
-	
-	var buttons:FlxTypedGroup<MobileButton> = new FlxTypedGroup<MobileButton>();
 	
 	var selInt:Int = 0;
 	
@@ -86,7 +84,6 @@ import lime.utils.Bytes;
 	
 	    add(sprites);
 	    add(icons);
-		add(buttons);
 	
 	    for (option in options)
 	    {
@@ -106,18 +103,11 @@ import lime.utils.Bytes;
 	
 	    changeShit();
 	
-	    var accept:MobileButton = new MobileButton(FlxG.width - 100, FlxG.height - 100, 'ENTER', 'A');
-		buttons.add(accept);
-		
-		var up:MobileButton = new MobileButton(50, FlxG.height - 200, 'UP', 'U');
-		buttons.add(up);
-		
-		var down:MobileButton = new MobileButton(50, FlxG.height - 100, 'DOWN', 'D');
-		buttons.add(down);
-		
-		for (btn in buttons) {
-			btn.cameras = [subCamera];
-		}
+		MobileAPI.toggleButtons(false, false);
+	
+	    MobileAPI.createButton(FlxG.width - 100, FlxG.height - 100, 'ENTER', 'A');
+		MobileAPI.createButton(50, FlxG.height - 200, 'UP', 'U');
+		MobileAPI.createButton(50, FlxG.height - 100, 'DOWN', 'D');
 	}
 	
 	override function update(elapsed:Float)
