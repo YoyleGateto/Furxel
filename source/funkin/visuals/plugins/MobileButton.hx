@@ -2,8 +2,9 @@ package funkin.visuals.plugins;
 
 import flixel.input.keyboard.FlxKey;
 import api.MobileAPI;
+import core.interfaces.ITactileButton;
 
-class MobileButton extends FlxSpriteGroup
+class MobileButton extends FlxSpriteGroup implements ITactileButton
 {
     public var key:FlxKey;
 

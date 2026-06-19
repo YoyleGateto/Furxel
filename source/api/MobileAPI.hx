@@ -45,5 +45,5 @@ class MobileAPI
         controls?.createButton(x, y, label, key, subState);
 
     public static function checkKey(key:FlxKey, prop:KeyCheck):Bool
-        return controls == null ? false : controls.checkKey(keys, prop);
+        return controls == null ? false : controls.checkKey(key, prop);
 }
