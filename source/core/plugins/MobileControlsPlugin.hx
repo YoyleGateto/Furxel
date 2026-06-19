@@ -113,9 +113,7 @@ class MobileControlsPlugin extends FlxTypedGroup<FlxBasic>
         if (!map.exists(key))
             map.set(key, []);
 
-        if (map.get(key).contains(obj))
-            continue;
-
-        map.get(key).push(obj);
+        if (!map.get(key).contains(obj))
+            map.get(key).push(obj);
     }
 }
