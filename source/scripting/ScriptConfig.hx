@@ -41,7 +41,45 @@ package scripting;
 
         funkin.visuals.Camera,
 
-        core.assets.Paths
+        core.assets.Paths,
+        
+        
+        
+        scripting.haxe.ScriptedFlxBasic,
+		scripting.haxe.ScriptedFlxObject,
+		scripting.haxe.ScriptedFlxGroup,
+		scripting.haxe.ScriptedFlxSpriteGroup,
+		
+		scripting.haxe.ScriptedFlxTimer,
+		scripting.haxe.ScriptedFlxSound,
+		scripting.haxe.ScriptedFlxRect,
+		
+		scripting.haxe.ScriptedFlxButton,
+		scripting.haxe.ScriptedFlxBar,
+		scripting.haxe.ScriptedFlxGraphic,
+		
+		scripting.haxe.ScriptedFlxSprite,
+		scripting.haxe.ScriptedFlxAnimate,
+		scripting.haxe.ScriptedFlxBackdrop,
+		scripting.haxe.ScriptedFlxRuntimeShader,
+		
+		scripting.haxe.ScriptedFlxText,
+		scripting.haxe.ScriptedFlxBitmapText,
+		scripting.haxe.ScriptedFlxTextFormat,
+		
+		scripting.haxe.ScriptedFlxCamera,
+		
+		scripting.haxe.ScriptedFlxKeyList,
+		scripting.haxe.ScriptedFlxBaseKeyList,
+		
+		scripting.haxe.ScriptedHScriptPresetBase,
+		
+		scripting.haxe.ScriptedFunkinSprite,
+		
+		scripting.haxe.ScriptedCamera,
+		
+		scripting.haxe.ScriptedRuntimeShader,
+		scripting.haxe.ScriptedFXShader
     ];
 
     public static final ABSTRACTS:Array<String> = [

@@ -106,7 +106,7 @@ import lime.utils.Bytes;
 		MobileAPI.toggleButtons(false, false);
 	
 	    MobileAPI.createButton(FlxG.width - 200, FlxG.height - 200, 'A', 'ENTER');
-		MobileAPI.createButton(50, FlxG.height - 500, 'U', 'UP');
+		MobileAPI.createButton(50, FlxG.height - 400, 'U', 'UP');
 		MobileAPI.createButton(50, FlxG.height - 200, 'D', 'DOWN');
 	}
 	
@@ -169,7 +169,7 @@ import lime.utils.Bytes;
 	    	holdElapsed = 0.0;
 	    }
 	
-	    if (Controls.keyJustPressed("UP") || Controls.keyJustPressed("UP")  || FlxG.mouse.wheel != 0)
+	    if (Controls.keyJustPressed("UP") || Controls.keyJustPressed("DOWN")  || FlxG.mouse.wheel != 0)
 	    {
 	        if (Controls.keyJustPressed("DOWN") || FlxG.mouse.wheel > 0)
 	        {
