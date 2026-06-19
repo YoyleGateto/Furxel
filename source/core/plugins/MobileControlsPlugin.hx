@@ -31,7 +31,7 @@ class MobileControlsPlugin extends FlxTypedGroup<FlxBasic>
     
     public function checkKey(key:Int, prop:KeyCheck):Bool
     {
-        if (key != null || key > 0) {
+        if (key > 0) {
 	        final group:Array<ITactileButton> = subStateButtons.get(key) ?? stateButtons.get(key);
 	
 	        if (group != null) {
