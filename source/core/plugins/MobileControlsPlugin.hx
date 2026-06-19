@@ -29,35 +29,31 @@ class MobileControlsPlugin extends FlxTypedGroup<FlxBasic>
     public var stateButtons:IntMap<Array<ITactileButton>> = new IntMap();
     public var subStateButtons:IntMap<Array<ITactileButton>> = new IntMap();
     
-    public function checkKey(key:FlxKey, prop:KeyCheck):Bool
+    public function checkKey(key:Int, prop:KeyCheck):Bool
     {
-        if (key == null || key <= 0)
-            continue;
-
-        final group:Array<ITactileButton> = subStateButtons.get(key) ?? stateButtons.get(key);
-
-        if (group == null)
-            continue;
-
-        for (obj in group)
-        {
-            if (obj == null)
-                continue;
-            
-            final property:Bool = switch(prop)
-            {
-                case KeyCheck.PRESSED:
-                    obj.pressed;
-                case KeyCheck.JUST_PRESSED:
-                    obj.justPressed;
-                case KeyCheck.JUST_RELEASED:
-                    obj.justReleased;
-            }
-            
-            if (obj.exists && property)
-                return true;
+        if (key != null || key > 0) {
+	        final group:Array<ITactileButton> = subStateButtons.get(key) ?? stateButtons.get(key);
+	
+	        if (group != null) {
+		        for (obj in group)
+		        {
+		            if (obj != null) {
+			            final property:Bool = switch(prop)
+			            {
+			                case KeyCheck.PRESSED:
+			                    obj.pressed;
+			                case KeyCheck.JUST_PRESSED:
+			                    obj.justPressed;
+			                case KeyCheck.JUST_RELEASED:
+			                    obj.justReleased;
+			            }
+			            
+			            if (obj.exists && property)
+			                return true;
+					}
+		        }
+	        }
         }
-        
         return false;
     }
     
