@@ -111,7 +111,7 @@ class MobileButton extends FlxSpriteGroup implements ITactileButton
 		
 		var isPressing = false;
 		for (touch in FlxG.touches.list) {
-			p = touch.getScreenPosition(cameras[0]);
+			var p = touch.getScreenPosition(cameras[0]);
 			if (p.x > this.x && p.x < (this.x + this.width) && p.y > this.y && p.y < (this.y + this.height) && touch.pressed)
 				isPressing = true;
 		}
