@@ -4,82 +4,140 @@ import flixel.input.keyboard.FlxKey;
 import api.MobileAPI;
 import core.interfaces.ITactileButton;
 
-class MobileButton extends FlxSpriteGroup implements ITactileButton
+class MobileButton extends FlxSpriteGroup implements ITactileButton 
 {
-    public var key:FlxKey;
-
-    public var bg:FlxSprite;
-    public var label:FlxText;
-
-    public function new(?X:Float = 0, ?Y:Float = 0, keyStr:String, labelText:String)
+	public var justPressed:Bool = false;
+	public var pressed:Bool = false;
+	public var justReleased:Bool = false;
+	
+	public var spr:FlxSprite;
+	public var label:FlxText;
+	
+	public var key:FlxKey;
+	
+	var padAnims:Map<String, Dynamic> = [
+		"a" => {
+			idle: 0,
+			press: 1,
+		},
+		"y" => {
+			idle: 2,
+			press: 3,
+		},
+		"left" => {
+			idle: 4,
+			press: 5,
+		},
+		"b" => {
+			idle: 6,
+			press: 7,
+		},
+		"z" => {
+			idle: 8,
+			press: 9,
+		},
+		"up" => {
+			idle: 10,
+			press: 11,
+		},
+		"c" => {
+			idle: 12,
+			press: 13,
+		},
+		"m" => {
+			idle: 14,
+			press: 15,
+		},
+		"right" => {
+			idle: 16,
+			press: 17,
+		},
+		"x" => {
+			idle: 18,
+			press: 19,
+		},
+		"e" => {
+			idle: 20,
+			press: 21,
+		},
+		"down" => {
+			idle: 22,
+			press: 23,
+		},
+		"none" => {
+			idle: 24,
+			press: 25,
+		},
+	];
+	
+	public function new(?X:Float = 0, ?Y:Float = 0, keyStr:String, labelText:String)
     {
         super(X, Y);
 
-		key = FlxKey.fromString(keyStr) ?? FlxKey.NONE;
+		key = FlxKey.fromString(keyStr.toUpperCase()) ?? FlxKey.NONE;
 
-        bg = new FlxSprite(0, 0).loadGraphic(Paths.image("ui/button"), true, 44, 45);
-        bg.animation.add('idle', [0], 1, true);
-        bg.animation.add('press', [1], 1, true);
-        add(bg);
-        bg.animation.play('idle');
-        bg.scale.set(4,4);
-        bg.updateHitbox();
-        bg.active = false;
-
-        label = new FlxText(0, 0, 0, labelText, 60);
-        add(label);
+		var id:String = labelText.toLowerCase() ??  "none";
+		if (!padAnims.exists(id))
+			id = "none";
+		var a:Dynamic = padAnims.get(id);
+		
+		spr = new FlxSprite(0, 0).loadGraphic(Paths.image("ui/virtualPad/buttons"), true, 256, 262);
+		spr.animation.add("idle", [a.idle]);
+		spr.animation.add("press", [a.press]);
+		
+		spr.scale.x = spr.scale.y = 0.5;
+		spr.updateHitbox();
+		
+		spr.active = false;
+		
+		add(spr);
+		
+		label = new FlxText(0, 0, 0, id == "none" ? labelText : "", 70);
         label.font = Paths.font('poppins.ttf');
-        label.color = FlxColor.BLACK;
-        label.x = bg.x + bg.width / 2 - label.width / 2;
-        label.y = bg.y + bg.height / 2 - label.height / 2;
+        label.color = 0xFF444444;
         label.active = false;
-
-        alpha = 0.75;
-    }
-
-    public var pressed:Bool = false;
-
-    public var justPressed:Bool = false;
-    
-    public var justReleased:Bool = false;
-
-    override function update(elapsed:Float)
+        
+        add(label);
+		
+		alpha = 0.75;
+	}
+	
+	override function update(elapsed:Float)
     {
         super.update(elapsed);
         
-        label.y = (bg.y + (pressed ? 0.0 : -10.0)) + bg.height / 2 - label.height / 2;
-        
-        if (justPressed)
-            justPressed = false;
-
-        if (justReleased)
-            justReleased = false;
-
-        if (FlxG.mouse.justPressed)
-        {
-            if (FlxG.mouse.overlaps(bg, cameras[0]))
-            {
-                pressed = justPressed = true;
-
-                alpha = 1;
-                
-                bg.animation.play('press');
-            }
-        }
-
-        if (pressed && !FlxG.mouse.pressed)
-        {
-            pressed = false;
-    
-            justReleased = true;
-    
-            alpha = 0.75;
-            
-            bg.animation.play('idle');
-        }
-    }
-    
-    public function restart()
+		label.x = spr.x + spr.width / 2 - label.width / 2;
+        label.y = (spr.y - (pressed ? 0 : 12)) + spr.height / 2 - label.height / 2;
+		
+		var isPressing = false;
+		for (touch in FlxG.touches.list) {
+			p = touch.getScreenPosition(cameras[0]);
+			if (p.x > this.x && p.x < (this.x + this.width) && p.y > this.y && p.y < (this.y + this.height) && touch.pressed)
+				isPressing = true;
+		}
+		
+		if (justPressed)
+			justPressed = false;
+		
+		if (justReleased)
+			justReleased = false;
+		
+		if (pressed) {
+			if (!isPressing) {
+				pressed = false;
+				justReleased = true;
+			}
+			spr.animation.play("press", true);
+		} else {
+			if (isPressing) {
+				justPressed = true;
+				pressed = true;
+			}
+			spr.animation.play("idle", true);
+		}
+	}
+	
+	public function restart()
     {
         pressed = justPressed = justReleased = false;
         

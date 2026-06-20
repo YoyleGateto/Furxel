@@ -105,9 +105,9 @@ import lime.utils.Bytes;
 	
 		MobileAPI.toggleButtons(false, false);
 	
-	    MobileAPI.createButton(FlxG.width - 200, FlxG.height - 200, 'A', 'ENTER');
-		MobileAPI.createButton(50, FlxG.height - 400, 'U', 'UP');
-		MobileAPI.createButton(50, FlxG.height - 200, 'D', 'DOWN');
+	    MobileAPI.createButton(FlxG.width - 200, FlxG.height - 200, 'a', 'ENTER');
+		MobileAPI.createButton(50, FlxG.height - 400, 'up', 'UP');
+		MobileAPI.createButton(50, FlxG.height - 200, 'down', 'DOWN');
 	}
 	
 	override function update(elapsed:Float)
