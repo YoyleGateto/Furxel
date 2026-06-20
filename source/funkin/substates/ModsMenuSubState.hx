@@ -1,7 +1,5 @@
 package funkin.substates;
 
-import funkin.visuals.objects.Alphabet;
-
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.util.FlxSave;

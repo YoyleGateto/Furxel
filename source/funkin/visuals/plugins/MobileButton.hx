@@ -107,7 +107,7 @@ class MobileButton extends FlxSpriteGroup implements ITactileButton
         super.update(elapsed);
         
 		label.x = spr.x + spr.width / 2 - label.width / 2;
-        label.y = (spr.y - (pressed ? 0 : 12)) + spr.height / 2 - label.height / 2;
+        label.y = (spr.y - (pressed ? 0.0 : 12.0)) + spr.height / 2 - label.height / 2;
 		
 		var isPressing = false;
 		for (touch in FlxG.touches.list) {
